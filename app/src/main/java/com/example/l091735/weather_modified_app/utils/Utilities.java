@@ -1,6 +1,7 @@
 package com.example.l091735.weather_modified_app.utils;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -47,7 +48,8 @@ public class Utilities {
      ***/
     public static boolean isAlive(Context context) {
         try {
-            if (context != null && !((Activity) context).isFinishing()) {
+
+            if (context != null) {
                 return true;
             }
         } catch (Exception e) {

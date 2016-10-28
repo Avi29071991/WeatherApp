@@ -1,10 +1,14 @@
-package com.example.l091735.weather_modified_app.presenter.network;
+package com.example.l091735.weather_modified_app.dagggerImpPackage;
 
-import android.content.Context;
+import com.example.l091735.weather_modified_app.model.interfaces.WeatherAPI;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
@@ -13,23 +17,21 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by L091735 on 26/10/2016.
+ * Created by L091735 on 28/10/2016.
  */
 
-public class RetroFitInitializer {
+@Module
+public class NetworkingModules {
 
-    private Context context;
+    String weatherBaseUrl;
 
-    public RetroFitInitializer(Context ctx) {
-        this.context = ctx;
+    public NetworkingModules(String weatherBaseUrl) {
+        this.weatherBaseUrl = weatherBaseUrl;
     }
 
-    /****
-     * Initializing Retrofit Component for calling the webservices
-     ****/
-
-    public Retrofit initializeRetrofit(String baseUrl) {
-
+    @Provides
+    @Singleton
+    public OkHttpClient getOkHttpClientInstance() {
         OkHttpClient.Builder httpBuilder = new OkHttpClient.Builder();
         httpBuilder.addInterceptor(new Interceptor() {
             @Override
@@ -41,13 +43,25 @@ public class RetroFitInitializer {
         httpBuilder.connectTimeout(20000, TimeUnit.MILLISECONDS);
         httpBuilder.readTimeout(20000, TimeUnit.MILLISECONDS);
 
+        return httpBuilder.build();
+    }
+
+    @Provides
+    @Singleton
+    public Retrofit getRetrofitInstance(OkHttpClient okHttpClient) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .client(httpBuilder.build())
+                .baseUrl(weatherBaseUrl)
+                .client(okHttpClient)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         return retrofit;
+    }
+
+    @Provides
+    @Singleton
+    public WeatherAPI getWeatherAPIInstance(Retrofit retrofit) {
+        return retrofit.create(WeatherAPI.class);
     }
 }

@@ -18,9 +18,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.l091735.weather_modified_app.R;
+import com.example.l091735.weather_modified_app.application.MyWeatherApplication;
 import com.example.l091735.weather_modified_app.databinding.ActivityWeatherMainBinding;
 import com.example.l091735.weather_modified_app.model.beans.DailyData;
 import com.example.l091735.weather_modified_app.model.interfaces.IWeather;
+import com.example.l091735.weather_modified_app.model.interfaces.WeatherAPI;
 import com.example.l091735.weather_modified_app.presenter.WeatherImpl;
 import com.example.l091735.weather_modified_app.utils.Codes;
 import com.example.l091735.weather_modified_app.utils.Utilities;
@@ -33,14 +35,24 @@ import com.google.android.gms.location.LocationServices;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class WeatherMainActivity extends AppCompatActivity implements IWeather, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
-    private Context context;
+    @Inject
+    Context context;
+
     /***
      * Variables for fetching the location
      ***/
-    private GoogleApiClient googleApiClient;
-    private LocationRequest locationRequest;
+
+    @Inject
+    GoogleApiClient.Builder builder;
+
+    @Inject
+    LocationRequest locationRequest;
+
+    GoogleApiClient googleApiClient;
 
     View scrolling_view;
     RecyclerView recycler_view;
@@ -57,6 +69,7 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
         /**  Initializing view components using Data Binding  **/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_weather_main);
 
+        ((MyWeatherApplication) getApplication()).getAppComponent().injectWeatherActivity(this);
 
         /** Initializing the view which are included using include tags **/
         setupUI();
@@ -79,19 +92,13 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
     private void startCall() {
         if (Utilities.isAlive(context)) {
 
-            if (googleApiClient == null) {
-                googleApiClient = new GoogleApiClient.Builder(context)
-                        .addConnectionCallbacks(this)
-                        .addOnConnectionFailedListener(this)
-                        .addApi(LocationServices.API)
-                        .build();
+            if (builder != null) {
+                builder.addConnectionCallbacks(this);
+                builder.addOnConnectionFailedListener(this);
+                googleApiClient = builder.build();
                 googleApiClient.connect();
             }
 
-            locationRequest = new LocationRequest();
-            locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-            locationRequest.setInterval(3000);
-            locationRequest.setFastestInterval(2000);
         }
     }
 

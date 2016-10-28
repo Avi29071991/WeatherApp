@@ -1,6 +1,7 @@
 package com.example.l091735.weather_modified_app.view.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.databinding.BindingAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.l091735.weather_modified_app.R;
+import com.example.l091735.weather_modified_app.application.MyWeatherApplication;
 import com.example.l091735.weather_modified_app.databinding.WeatherRowBinding;
 import com.example.l091735.weather_modified_app.model.beans.DailyData;
 import com.example.l091735.weather_modified_app.utils.Utilities;
@@ -20,6 +22,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 /**
  * Created by L091735 on 26/10/2016.
  */
@@ -27,17 +31,20 @@ import java.util.Locale;
 public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapter.SimpleViewHolder> {
 
     private List<DailyData> beanList;
-    private static Context context;
+    private Context context;
 
-    public DailyWeatherAdapter(List<DailyData> beanList, Context context) {
+    @Inject
+    public LayoutInflater inflater;
+
+    public DailyWeatherAdapter(List<DailyData> beanList, Context mcontext) {
         this.beanList = beanList;
-        this.context = context;
+        this.context = mcontext;
+        ((MyWeatherApplication) context).getAppComponent().injectWeatherListAdapter(this);
     }
 
     @Override
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.weather_row, parent, false);
+        View v = inflater.inflate(R.layout.weather_row, parent, false);
         return new SimpleViewHolder(v);
     }
 
@@ -87,7 +94,7 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
     @BindingAdapter("app:temperature")
     public static void setTemparature(TextView textview, double temp) {
         if (textview != null) {
-            textview.setText(context.getResources().getString(R.string.degcelcius, String.valueOf(Utilities.convertFarheniteToCelcius(temp))));
+            textview.setText(textview.getContext().getString(R.string.degcelcius, String.valueOf(Utilities.convertFarheniteToCelcius(temp))));
         }
     }
 
@@ -96,7 +103,7 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
         if (textView != null && Utilities.isNotEmpty(text)) {
             textView.setText(text);
         } else {
-            textView.setText(context.getResources().getString(R.string.not_available));
+            textView.setText(textView.getContext().getResources().getString(R.string.not_available));
         }
     }
 

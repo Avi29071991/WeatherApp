@@ -3,11 +3,11 @@ package com.example.l091735.weather_modified_app.presenter;
 import android.content.Context;
 
 
+import com.example.l091735.weather_modified_app.application.MyWeatherApplication;
 import com.example.l091735.weather_modified_app.model.beans.DailyData;
 import com.example.l091735.weather_modified_app.model.beans.WeatherBean;
 import com.example.l091735.weather_modified_app.model.interfaces.IWeather;
 import com.example.l091735.weather_modified_app.model.interfaces.WeatherAPI;
-import com.example.l091735.weather_modified_app.presenter.network.RetroFitInitializer;
 import com.example.l091735.weather_modified_app.utils.Codes;
 import com.example.l091735.weather_modified_app.utils.Utilities;
 
@@ -16,10 +16,11 @@ import com.example.l091735.weather_modified_app.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Retrofit;
 import rx.Observable;
 import rx.Subscriber;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -29,8 +30,15 @@ public class WeatherImpl {
 
     private Context context;
 
+    @Inject
+    WeatherAPI apiService;
+
+    @Inject
+    Retrofit retrofitObj;
+
     public WeatherImpl(Context context) {
         this.context = context;
+        ((MyWeatherApplication) context).getAppComponent().injectPojo(this);
     }
 
     /*****
@@ -39,23 +47,17 @@ public class WeatherImpl {
     private Observable<WeatherBean> callWeatherAPI(double latitude, double longitude) {
         if (Utilities.isAlive(context)) {
 
-            Retrofit retrofitObj = new RetroFitInitializer(context).initializeRetrofit(context.getResources().getString(R.string.weather_base_url));
-            if (retrofitObj != null) {
-                WeatherAPI apiService = retrofitObj.create(WeatherAPI.class);
+            apiService = retrofitObj.create(WeatherAPI.class);
 
-                Observable<WeatherBean> weatherBeanObservable = apiService.fetchCurrentWeather(Codes.API_KEY, latitude, longitude);
-                weatherBeanObservable.flatMap(new Func1<WeatherBean, Observable<? extends WeatherBean>>() {
-                    @Override
-                    public Observable<? extends WeatherBean> call(WeatherBean weatherBean) {
-                        return weatherBean.filterWebService();
-                    }
-                });
-
-                if (weatherBeanObservable != null) {
-                    return weatherBeanObservable;
+            Observable<WeatherBean> weatherBeanObservable = apiService.fetchCurrentWeather(Codes.API_KEY, latitude, longitude);
+            weatherBeanObservable.flatMap(new Func1<WeatherBean, Observable<? extends WeatherBean>>() {
+                @Override
+                public Observable<? extends WeatherBean> call(WeatherBean weatherBean) {
+                    return weatherBean.filterWebService();
                 }
-            }
+            });
 
+            return weatherBeanObservable;
 
         }
 

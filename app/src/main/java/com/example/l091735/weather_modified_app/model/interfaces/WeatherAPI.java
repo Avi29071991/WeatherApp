@@ -2,6 +2,7 @@ package com.example.l091735.weather_modified_app.model.interfaces;
 
 import com.example.l091735.weather_modified_app.model.beans.WeatherBean;
 
+import dagger.Module;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;
@@ -9,6 +10,7 @@ import rx.Observable;
 /**
  * Created by L091735 on 26/10/2016.
  */
+
 
 public interface WeatherAPI {
 
