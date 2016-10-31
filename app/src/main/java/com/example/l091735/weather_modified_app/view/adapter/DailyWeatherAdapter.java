@@ -31,10 +31,11 @@ import javax.inject.Inject;
 public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapter.SimpleViewHolder> {
 
     private List<DailyData> beanList;
+
     private Context context;
 
     @Inject
-    public LayoutInflater inflater;
+    LayoutInflater inflater;
 
     public DailyWeatherAdapter(List<DailyData> beanList, Context mcontext) {
         this.beanList = beanList;
@@ -65,10 +66,12 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
     }
 
 
-    /****
-     * Creating different binding adapters for displaying
-     * date , time , temperature and weather icon directly
-     * using custom tags in layout xml files.
+    /**
+     * Creates a new tag which can be used in the xml
+     * file for displaying the day OR date in the below specified format
+     *
+     * @param dateTimeInMillis the datetime value in milliseconds which needs to be converted and displayed in the layout.
+     * @param textView         the TextView in which day OR date needs oto be displayed.
      ****/
 
 
@@ -91,6 +94,13 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
         }
     }
 
+    /**
+     * Creates a new tag which can be used in the xml
+     * file for displaying the temperature in the below specified format
+     *
+     * @param temp     the temperature value which needs to be converted and displayed in the layout.
+     * @param textview the TextView in which temperature needs oto be displayed.
+     ****/
     @BindingAdapter("app:temperature")
     public static void setTemparature(TextView textview, double temp) {
         if (textview != null) {
@@ -98,6 +108,13 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
         }
     }
 
+
+    /**
+     * Creates a new tag which can be used in the xml file for displaying the text.
+     *
+     * @param text     the text value which needs to be displayed in the layout.
+     * @param textView the TextView in which text needs to be displayed.
+     ****/
     @BindingAdapter("app:text")
     public static void setText(TextView textView, String text) {
         if (textView != null && Utilities.isNotEmpty(text)) {
@@ -107,6 +124,12 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
         }
     }
 
+    /**
+     * Creates a new tag which can be used in the xml file for displaying the icon according to the specified weather condition.
+     *
+     * @param iconType  the type of icon for weather condition which needs to be displayed in the layout.
+     * @param imageView the ImageView in which image needs to be displayed.
+     ****/
     @BindingAdapter("app:weatherIcon")
     public static void setWeatherIcon(ImageView imageView, String iconType) {
         if (imageView != null && Utilities.isNotEmpty(iconType)) {
@@ -140,13 +163,13 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
 
     public class SimpleViewHolder extends RecyclerView.ViewHolder {
 
-        private WeatherRowBinding rowBinding;
+        public WeatherRowBinding rowBinding;
 
         public WeatherRowBinding getRowBinding() {
             return rowBinding;
         }
 
-        public SimpleViewHolder(View itemView) {
+        private SimpleViewHolder(View itemView) {
             super(itemView);
             rowBinding = WeatherRowBinding.bind(itemView);
         }

@@ -36,15 +36,20 @@ public class WeatherImpl {
     @Inject
     Retrofit retrofitObj;
 
+
     public WeatherImpl(Context context) {
         this.context = context;
         ((MyWeatherApplication) context).getAppComponent().injectPojo(this);
     }
 
-    /*****
-     * Creating an observable for fethcing the weather data from Forecast API
-     *****/
-    private Observable<WeatherBean> callWeatherAPI(double latitude, double longitude) {
+    /**
+     * Returns the Observable object of Weather bean which can be subscribed for fetching weather data.
+     *
+     * @param latitude  double value which represents the latitude of the updated location.
+     * @param longitude double value which represents the longitude of the updated location.
+     * @return Observable<Weather> which is used for further subscription.
+     **/
+    public Observable<WeatherBean> callWeatherAPI(double latitude, double longitude) {
         if (Utilities.isAlive(context)) {
 
             apiService = retrofitObj.create(WeatherAPI.class);
@@ -64,9 +69,14 @@ public class WeatherImpl {
         return null;
     }
 
-    /****
-     * Creating a subscription for getting detais from the observer for weather API and display details accordingly.
-     ****/
+    /**
+     * Processes the observable object to fetch weather data and calls
+     * onNext if data is fetched successfully OR onError if there occurs a problem while fetching data.
+     *
+     * @param latitude        double value which represents the latitude of the updated location.
+     * @param longitude       double value which represents the longitude of the updated location.
+     * @param iWeatherListner interface which will be called for displaying data or error depending on the condition provided.
+     **/
 
     public void fetchWeatherDataForDisplay(final IWeather iWeatherListner, final double latitude, final double longitude) {
 

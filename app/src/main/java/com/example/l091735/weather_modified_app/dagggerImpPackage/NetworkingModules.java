@@ -1,6 +1,7 @@
 package com.example.l091735.weather_modified_app.dagggerImpPackage;
 
 import com.example.l091735.weather_modified_app.model.interfaces.WeatherAPI;
+import com.example.l091735.weather_modified_app.utils.Codes;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -23,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkingModules {
 
-    String weatherBaseUrl;
+    private String weatherBaseUrl;
 
     public NetworkingModules(String weatherBaseUrl) {
         this.weatherBaseUrl = weatherBaseUrl;
@@ -40,8 +41,8 @@ public class NetworkingModules {
                 return response;
             }
         });
-        httpBuilder.connectTimeout(20000, TimeUnit.MILLISECONDS);
-        httpBuilder.readTimeout(20000, TimeUnit.MILLISECONDS);
+        httpBuilder.connectTimeout(Codes.CONNECTION_READ_TIMEOUT, TimeUnit.MILLISECONDS);
+        httpBuilder.readTimeout(Codes.CONNECTION_READ_TIMEOUT, TimeUnit.MILLISECONDS);
 
         return httpBuilder.build();
     }

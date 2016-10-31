@@ -11,7 +11,7 @@ public class WeatherBean {
 
     @SerializedName("daily")
     @Expose
-    DailyMain daily;
+    private DailyMain daily;
 
 
     public DailyMain getDaily() {

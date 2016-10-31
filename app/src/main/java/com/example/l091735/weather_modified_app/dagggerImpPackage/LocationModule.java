@@ -2,6 +2,7 @@ package com.example.l091735.weather_modified_app.dagggerImpPackage;
 
 import android.app.Application;
 
+import com.example.l091735.weather_modified_app.utils.Codes;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -18,7 +19,7 @@ import dagger.Provides;
 @Module
 public class LocationModule {
 
-    Application application;
+    public Application application;
 
     public LocationModule(Application application) {
         this.application = application;
@@ -29,8 +30,8 @@ public class LocationModule {
     public LocationRequest getLocationRequestInstance() {
         LocationRequest locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-        locationRequest.setInterval(3000);
-        locationRequest.setFastestInterval(2000);
+        locationRequest.setInterval(Codes.LOCATION_INTERVAL_TIME);
+        locationRequest.setFastestInterval(Codes.LOCATION_FASTEST_INTERVAL_TIME);
 
         return locationRequest;
     }

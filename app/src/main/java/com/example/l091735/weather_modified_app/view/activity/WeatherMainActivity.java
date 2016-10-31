@@ -42,22 +42,18 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
     @Inject
     Context context;
 
-    /***
-     * Variables for fetching the location
-     ***/
+    @Inject
+    GoogleApiClient.Builder builder; // Building GoogleApiClient object
 
     @Inject
-    GoogleApiClient.Builder builder;
+    LocationRequest locationRequest; // For initializing the request depending upon the type and time interval
 
-    @Inject
-    LocationRequest locationRequest;
+    private GoogleApiClient googleApiClient; // Requesting location updates to begin
 
-    GoogleApiClient googleApiClient;
-
-    View scrolling_view;
-    RecyclerView recycler_view;
-    TextView msg_text;
-    ProgressBar loadingBar;
+    private View scrolling_view;
+    private RecyclerView recycler_view;
+    private TextView msg_text;
+    private ProgressBar loadingBar;
 
     private ActivityWeatherMainBinding binding;
 
@@ -66,15 +62,12 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
         super.onCreate(savedInstanceState);
         context = WeatherMainActivity.this;
 
-        /**  Initializing view components using Data Binding  **/
         binding = DataBindingUtil.setContentView(this, R.layout.activity_weather_main);
 
         ((MyWeatherApplication) getApplication()).getAppComponent().injectWeatherActivity(this);
 
-        /** Initializing the view which are included using include tags **/
         setupUI();
 
-        /** Code for checking permission in Android Marshmallow **/
         if (Utilities.checkPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)) {
             startCall();
         } else {
@@ -87,7 +80,8 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
     }
 
     /**
-     * Initializing the GoogleApiClient for fetching location
+     * Initializes the GoogleAPIClient
+     * object which can be used for fetching location updates.
      **/
     private void startCall() {
         if (Utilities.isAlive(context)) {
@@ -102,17 +96,17 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
         }
     }
 
-    /**
-     * Method for setting up basic UI elements
-     **/
     public void setupUI() {
         if (Utilities.isAlive(context) && binding != null) {
             binding.setToolBarEmptyTitle(context.getResources().getString(R.string.empty));
             binding.setToolBarTitle(context.getResources().getString(R.string.demo_name));
             if (binding.getRoot() != null) {
+
                 setSupportActionBar((Toolbar) binding.getRoot().findViewById(R.id.toolbar));
                 scrolling_view = binding.getRoot().findViewById(R.id.scrolling_view);
+
                 if (scrolling_view != null) {
+
                     recycler_view = (RecyclerView) scrolling_view.findViewById(R.id.recycler_view);
                     msg_text = (TextView) scrolling_view.findViewById(R.id.msg_text);
                     loadingBar = (ProgressBar) scrolling_view.findViewById(R.id.loadingbar);
@@ -120,12 +114,15 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
                     if (recycler_view != null) {
                         recycler_view.setVisibility(View.GONE);
                     }
+
                     if (loadingBar != null) {
                         loadingBar.setVisibility(View.VISIBLE);
                     }
+
                     if (msg_text != null) {
                         msg_text.setVisibility(View.GONE);
                     }
+
                 }
             }
         }
@@ -158,7 +155,9 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
     }
 
     /**
-     * Method for Showing weather data successfully
+     * Displays the list view with weather details for 7 days.
+     *
+     * @param dataList List of Daily Data which needs to be displayed.
      **/
     @Override
     public void onWeatherDataResponseSuccessful(List<DailyData> dataList) {
@@ -170,9 +169,11 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
                 recycler_view.setLayoutManager(new LinearLayoutManager(context));
                 recycler_view.setVisibility(View.VISIBLE);
             }
+
             if (loadingBar != null) {
                 loadingBar.setVisibility(View.GONE);
             }
+
             if (msg_text != null) {
                 msg_text.setVisibility(View.GONE);
             }
@@ -181,7 +182,10 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
     }
 
     /**
-     * Method used when weather data is not fetched successfully
+     * Displays the screen with error
+     * message if some error occurs while fetching data.
+     *
+     * @param message String which needs to be displayed
      **/
     @Override
     public void onWeatherDataResponseFailure(String message) {
@@ -189,9 +193,11 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
             if (recycler_view != null) {
                 recycler_view.setVisibility(View.GONE);
             }
+
             if (loadingBar != null) {
                 loadingBar.setVisibility(View.GONE);
             }
+
             if (msg_text != null) {
                 msg_text.setText(message);
                 msg_text.setVisibility(View.VISIBLE);
@@ -205,11 +211,15 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode == Codes.LOCATION_PERMISSION) {
+
             if (googleApiClient != null) {
                 fetchLocation();
             }
+
         } else {
+
             onWeatherDataResponseFailure(context.getResources().getString(R.string.permission_denied));
+
         }
     }
 
@@ -217,8 +227,10 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
     private void fetchLocation() {
         try {
             if (googleApiClient != null && locationRequest != null) {
+
                 LocationServices.FusedLocationApi.requestLocationUpdates(
                         googleApiClient, locationRequest, this);
+
             }
         } catch (SecurityException se) {
             se.printStackTrace();
@@ -244,16 +256,24 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
         }
     }
 
+    /**
+     * Called when the location of device is updated.
+     *
+     * @param location the updated location of the device which
+     *                 can be used for fetching weather data for updated location.
+     **/
     @Override
     public void onLocationChanged(Location location) {
         if (Utilities.isAlive(context)) {
             if (location != null) {
+
                 new WeatherImpl(context).fetchWeatherDataForDisplay(WeatherMainActivity.this, location.getLatitude(), location.getLongitude());
 
                 if (googleApiClient != null) {
                     locationRequest = null;
                     LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
                 }
+
             } else {
                 onWeatherDataResponseFailure(context.getResources().getString(R.string.null_location));
             }

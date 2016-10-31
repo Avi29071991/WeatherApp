@@ -1,7 +1,6 @@
 package com.example.l091735.weather_modified_app.utils;
 
-import android.app.Activity;
-import android.app.Application;
+
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -14,26 +13,26 @@ import java.util.Map;
 public class Utilities {
 
 
-    /***
-     * To check if the user is online
-     ***/
+    /**
+     * Returns the boolean value depending on the device internet connectivity
+     *
+     * @param context Checking the internet connectivity using context
+     * @return boolean value depending on the device internet connectivity
+     **/
     public static boolean isOnline(Context context) {
         try {
             if (context != null) {
 
                 ConnectivityManager cm = (ConnectivityManager) context
                         .getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo netInfo = cm.getNetworkInfo(0);
-                if (netInfo != null
-                        && netInfo.getState() == NetworkInfo.State.CONNECTED) {
+
+
+                NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+                if (netInfo != null && netInfo.getState() == NetworkInfo.State.CONNECTED) {
                     return true;
                 } else {
-                    netInfo = cm.getNetworkInfo(1);
-                    if (netInfo != null
-                            && netInfo.getState() == NetworkInfo.State.CONNECTED)
-                        return true;
-                    else
-                        return false;
+                    return false;
                 }
             } else
                 return false;
@@ -43,9 +42,12 @@ public class Utilities {
 
     }
 
-    /***
-     * To check if context is not null
-     ***/
+    /**
+     * Returns the boolean value depending on whether the context is not null.
+     *
+     * @param context Context parameter which needs to be checked.
+     * @return boolean value depending on context parameter.
+     **/
     public static boolean isAlive(Context context) {
         try {
 
@@ -59,9 +61,12 @@ public class Utilities {
 
     }
 
-    /***
-     * To check if string value is not null or empty
-     ***/
+    /**
+     * Returns the boolean value depending on the null pointer check for mentioned string.
+     *
+     * @param obj Object which needs to be checked for null conditions.
+     * @return boolean value which is used to identify if the obj is null or not.
+     **/
 
     @SuppressWarnings("rawtypes")
     public static boolean isNotEmpty(Object obj) {
@@ -86,9 +91,13 @@ public class Utilities {
 
     }
 
-    /***
-     * To check if the application has specified permission for Android Marshmallow
-     ***/
+    /**
+     * Returns a boolean value depending on the condition whether
+     * the user had granted the specified permission or not (Only for Android 23+).
+     *
+     * @param requiredPermission Permission which is required for performing some actions.
+     * @return a boolean value depending on the available permissions.
+     **/
     public static boolean checkPermission(Context context, String requiredPermission) {
         PackageManager pm = context.getPackageManager();
         int hasRequiredPermission = pm.checkPermission(
@@ -102,14 +111,18 @@ public class Utilities {
     }
 
 
-    /***
-     * To convert temperature from Farhenite to Celius
-     ***/
-    public static float convertFarheniteToCelcius(double farheit) {
+    /**
+     * Returns the temperature in degree celcius which can be displayed on the screen.
+     * The fahrenheit argument must specify an absolute temperature value.
+     *
+     * @param fahrenheit the temperature value in degree fahrenheit.
+     * @return a float value i.e temperature in degree celcius.
+     **/
+    public static float convertFarheniteToCelcius(double fahrenheit) {
         // TODO Auto-generated method stub
         double celcius;
         float x;
-        celcius = ((farheit - 32) * 5) / 9;
+        celcius = ((fahrenheit - 32) * 5) / 9;
         x = (float) Math.round(celcius);
         return x;
     }

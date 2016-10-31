@@ -12,5 +12,8 @@ public class Codes {
 
     public static final int LOCATION_PERMISSION = 100;
 
+    public static final long LOCATION_INTERVAL_TIME = 3000;
+    public static final long LOCATION_FASTEST_INTERVAL_TIME = 2000;
+    public static final long CONNECTION_READ_TIMEOUT = 20000;
 
 }
