@@ -121,7 +121,7 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
             if (Utilities.isNotEmpty(text)) {
                 textView.setText(text);
             } else {
-                textView.setText(textView.getContext().getResources().getString(R.string.not_available));
+                textView.setText(R.string.not_available);
             }
         }
     }

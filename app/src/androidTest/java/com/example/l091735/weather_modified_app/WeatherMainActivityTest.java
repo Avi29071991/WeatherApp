@@ -8,7 +8,6 @@ import com.example.l091735.weather_modified_app.model.interfaces.WeatherAPI;
 import com.example.l091735.weather_modified_app.utils.Codes;
 
 import org.junit.Assert;
-import org.junit.Before;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -28,13 +27,12 @@ public class WeatherMainActivityTest extends InstrumentationTestCase {
 
 
     private MockRetrofit mockRetrofit;
-    private Retrofit retrofit;
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
 
-        retrofit = new Retrofit.Builder().baseUrl(Codes.BASE_WEATHER_URL)
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Codes.BASE_WEATHER_URL)
                 .client(new OkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

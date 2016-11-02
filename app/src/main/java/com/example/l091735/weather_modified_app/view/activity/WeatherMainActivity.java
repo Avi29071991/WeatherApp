@@ -49,8 +49,8 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
 
     private GoogleApiClient googleApiClient; // Requesting location updates to begin
 
-    private RecyclerView recycler_view;
-    private TextView msg_text;
+    private RecyclerView recyclerView;
+    private TextView msgText;
     private ProgressBar loadingBar;
 
     private ActivityWeatherMainBinding binding;
@@ -105,24 +105,24 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
             if (binding.getRoot() != null) {
 
                 setSupportActionBar((Toolbar) binding.getRoot().findViewById(R.id.toolbar));
-                View scrolling_view = binding.getRoot().findViewById(R.id.scrolling_view);
+                View scrollingView = binding.getRoot().findViewById(R.id.scrolling_view);
 
-                if (scrolling_view != null) {
+                if (scrollingView != null) {
 
-                    recycler_view = (RecyclerView) scrolling_view.findViewById(R.id.recycler_view);
-                    msg_text = (TextView) scrolling_view.findViewById(R.id.msg_text);
-                    loadingBar = (ProgressBar) scrolling_view.findViewById(R.id.loadingbar);
+                    recyclerView = (RecyclerView) scrollingView.findViewById(R.id.recycler_view);
+                    msgText = (TextView) scrollingView.findViewById(R.id.msg_text);
+                    loadingBar = (ProgressBar) scrollingView.findViewById(R.id.loadingbar);
 
-                    if (recycler_view != null) {
-                        recycler_view.setVisibility(View.GONE);
+                    if (recyclerView != null) {
+                        recyclerView.setVisibility(View.GONE);
                     }
 
                     if (loadingBar != null) {
                         loadingBar.setVisibility(View.VISIBLE);
                     }
 
-                    if (msg_text != null) {
-                        msg_text.setVisibility(View.GONE);
+                    if (msgText != null) {
+                        msgText.setVisibility(View.GONE);
                     }
 
                 }
@@ -157,27 +157,27 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
     }
 
     /**
-     * Displays the list view with weather details for 7 days.
+     * Displays the list view with weather details for 8 days.
      *
      * @param dataList List of Daily Data which needs to be displayed.
      **/
     @Override
     public void onWeatherDataResponseSuccessful(List<DailyData> dataList) {
         if (dataList != null && dataList.size() > 0) {
-            if (recycler_view != null) {
+            if (recyclerView != null) {
                 DailyWeatherAdapter adapter = new DailyWeatherAdapter(dataList, context);
                 adapter.notifyDataSetChanged();
-                recycler_view.setAdapter(adapter);
-                recycler_view.setLayoutManager(new LinearLayoutManager(context));
-                recycler_view.setVisibility(View.VISIBLE);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                recyclerView.setVisibility(View.VISIBLE);
             }
 
             if (loadingBar != null) {
                 loadingBar.setVisibility(View.GONE);
             }
 
-            if (msg_text != null) {
-                msg_text.setVisibility(View.GONE);
+            if (msgText != null) {
+                msgText.setVisibility(View.GONE);
             }
 
         }
@@ -192,17 +192,17 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
     @Override
     public void onWeatherDataResponseFailure(String message) {
         if (Utilities.isNotEmpty(message)) {
-            if (recycler_view != null) {
-                recycler_view.setVisibility(View.GONE);
+            if (recyclerView != null) {
+                recyclerView.setVisibility(View.GONE);
             }
 
             if (loadingBar != null) {
                 loadingBar.setVisibility(View.GONE);
             }
 
-            if (msg_text != null) {
-                msg_text.setText(message);
-                msg_text.setVisibility(View.VISIBLE);
+            if (msgText != null) {
+                msgText.setText(message);
+                msgText.setVisibility(View.VISIBLE);
             }
         }
     }

@@ -2,7 +2,6 @@ package com.example.l091735.weather_modified_app.dagggerImpPackage;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 
 
@@ -18,7 +17,7 @@ import dagger.Provides;
 @Module
 public class AndroidModule {
 
-    public Application context;
+    private Application context;
 
     public AndroidModule(Application context) {
         this.context = context;

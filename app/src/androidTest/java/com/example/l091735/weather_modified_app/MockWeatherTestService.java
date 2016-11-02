@@ -1,12 +1,8 @@
 package com.example.l091735.weather_modified_app;
 
-import com.example.l091735.weather_modified_app.model.beans.DailyData;
-import com.example.l091735.weather_modified_app.model.beans.DailyMain;
 import com.example.l091735.weather_modified_app.model.beans.WeatherBean;
 import com.example.l091735.weather_modified_app.model.interfaces.WeatherAPI;
 import com.google.gson.Gson;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Path;

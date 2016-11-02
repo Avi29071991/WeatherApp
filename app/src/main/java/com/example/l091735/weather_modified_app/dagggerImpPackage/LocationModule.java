@@ -19,7 +19,7 @@ import dagger.Provides;
 @Module
 public class LocationModule {
 
-    public Application application;
+    private Application application;
 
     public LocationModule(Application application) {
         this.application = application;

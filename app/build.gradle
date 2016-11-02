@@ -3,7 +3,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '23.0.3'
     defaultConfig {
         applicationId "com.example.l091735.weather_modified_app"
         minSdkVersion 15
@@ -37,27 +37,22 @@ dependencies {
     androidTestCompile 'com.android.support.test:rules:0.5'
     androidTestCompile 'com.squareup.okhttp3:mockwebserver:3.4.1'
     androidTestCompile 'com.squareup.retrofit2:retrofit-mock:2.1.0'
-
     //dependencies from android framework
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
-    compile "com.google.android.gms:play-services-location:8.4.0"
-
+    compile 'com.google.android.gms:play-services-location:8.4.0'
     //dependencies for reactive libraries
     compile 'io.reactivex:rxjava:1.2.1'
     compile 'io.reactivex:rxandroid:1.2.1'
-
     //dependencies for retrofit libraries
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-
     //dependencies for Dagger libraries
     apt 'com.google.dagger:dagger-compiler:2.7'
     compile 'com.google.dagger:dagger:2.7'
     provided 'javax.annotation:jsr250-api:1.0'
-
 }
 
 
