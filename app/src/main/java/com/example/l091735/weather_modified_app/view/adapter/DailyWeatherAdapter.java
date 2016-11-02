@@ -1,7 +1,6 @@
 package com.example.l091735.weather_modified_app.view.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.databinding.BindingAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,6 +22,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+
 
 /**
  * Created by L091735 on 26/10/2016.
@@ -50,7 +50,7 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
     }
 
     @Override
-    public void onBindViewHolder(SimpleViewHolder holder, int position) {
+    public void onBindViewHolder(SimpleViewHolder holder, final int position) {
         final DailyData data = beanList.get(position);
         if (data != null) {
             holder.getRowBinding().setDailyData(data);
@@ -118,9 +118,11 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
     @BindingAdapter("app:text")
     public static void setText(TextView textView, String text) {
         if (textView != null && Utilities.isNotEmpty(text)) {
-            textView.setText(text);
-        } else {
-            textView.setText(textView.getContext().getResources().getString(R.string.not_available));
+            if (Utilities.isNotEmpty(text)) {
+                textView.setText(text);
+            } else {
+                textView.setText(textView.getContext().getResources().getString(R.string.not_available));
+            }
         }
     }
 
@@ -157,13 +159,15 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
 
                     imageView.setImageResource(R.drawable.w_03d);
                     break;
+                default:
+                    break;
             }
         }
     }
 
     public class SimpleViewHolder extends RecyclerView.ViewHolder {
 
-        public WeatherRowBinding rowBinding;
+        private WeatherRowBinding rowBinding;
 
         public WeatherRowBinding getRowBinding() {
             return rowBinding;

@@ -49,14 +49,11 @@ public class Utilities {
      * @return boolean value depending on context parameter.
      **/
     public static boolean isAlive(Context context) {
-        try {
 
-            if (context != null) {
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (context != null) {
+            return true;
         }
+
         return false;
 
     }

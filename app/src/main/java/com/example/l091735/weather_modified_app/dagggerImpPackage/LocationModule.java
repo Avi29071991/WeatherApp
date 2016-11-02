@@ -27,7 +27,7 @@ public class LocationModule {
 
     @Provides
     @Singleton
-    public LocationRequest getLocationRequestInstance() {
+    LocationRequest getLocationRequestInstance() {
         LocationRequest locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         locationRequest.setInterval(Codes.LOCATION_INTERVAL_TIME);
@@ -38,7 +38,7 @@ public class LocationModule {
 
     @Provides
     @Singleton
-    public GoogleApiClient.Builder getGoogleApiClientBuilderInstance() {
+    GoogleApiClient.Builder getGoogleApiClientBuilderInstance() {
 
         return new GoogleApiClient.Builder(application).addApi(LocationServices.API);
     }

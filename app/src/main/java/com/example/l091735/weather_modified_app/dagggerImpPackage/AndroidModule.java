@@ -26,13 +26,13 @@ public class AndroidModule {
 
     @Provides
     @Singleton
-    public Context getContextInstance() {
+    Context getContextInstance() {
         return context;
     }
 
     @Provides
     @Singleton
-    public LayoutInflater getLayoutInflater() {
+    LayoutInflater getLayoutInflater() {
         return (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

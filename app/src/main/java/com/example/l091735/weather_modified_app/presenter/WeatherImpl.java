@@ -1,6 +1,7 @@
 package com.example.l091735.weather_modified_app.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 
 import com.example.l091735.weather_modified_app.application.MyWeatherApplication;
@@ -18,7 +19,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import retrofit2.Retrofit;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -33,10 +33,28 @@ public class WeatherImpl {
     @Inject
     WeatherAPI apiService;
 
-    @Inject
-    Retrofit retrofitObj;
+    /**
+     * Sets the object of WeatherAPI which is used for Unit testing using JUnit.
+     *
+     * @param apiService the object of WeatherAPI service which needs to be set.
+     **/
+    public void setApiService(WeatherAPI apiService) {
+        this.apiService = apiService;
+    }
 
 
+    /**
+     * Empty constructor used for initializing this class for Unit testing using JUnit.
+     **/
+    public WeatherImpl() {
+    }
+
+
+    /**
+     * Constructor of WeatherImpl class which sets the context used for further webservice call operations
+     *
+     * @param context context of the activity which is used for injecting dependency classes.
+     **/
     public WeatherImpl(Context context) {
         this.context = context;
         ((MyWeatherApplication) context).getAppComponent().injectPojo(this);
@@ -50,24 +68,15 @@ public class WeatherImpl {
      * @return Observable<Weather> which is used for further subscription.
      **/
     public Observable<WeatherBean> callWeatherAPI(double latitude, double longitude) {
-        if (Utilities.isAlive(context)) {
 
-            apiService = retrofitObj.create(WeatherAPI.class);
-
-            Observable<WeatherBean> weatherBeanObservable = apiService.fetchCurrentWeather(Codes.API_KEY, latitude, longitude);
-            weatherBeanObservable.flatMap(new Func1<WeatherBean, Observable<? extends WeatherBean>>() {
-                @Override
-                public Observable<? extends WeatherBean> call(WeatherBean weatherBean) {
-                    return weatherBean.filterWebService();
-                }
-            });
-
-            return weatherBeanObservable;
-
-        }
-
-        return null;
+        return apiService.fetchCurrentWeather(Codes.API_KEY, latitude, longitude).flatMap(new Func1<WeatherBean, Observable<? extends WeatherBean>>() {
+            @Override
+            public Observable<? extends WeatherBean> call(WeatherBean weatherBean) {
+                return weatherBean.filterWebService();
+            }
+        });
     }
+
 
     /**
      * Processes the observable object to fetch weather data and calls
@@ -92,7 +101,7 @@ public class WeatherImpl {
                         @Override
                         public void onCompleted() {
                             if (iWeatherListner != null) {
-                                if (dataList != null && dataList.size() > 0) {
+                                if (dataList.size() > 0) {
                                     iWeatherListner.onWeatherDataResponseSuccessful(dataList);
                                 } else {
                                     iWeatherListner.onWeatherDataResponseFailure(context.getResources().getString(R.string.no_data));
@@ -102,7 +111,8 @@ public class WeatherImpl {
 
                         @Override
                         public void onError(Throwable e) {
-                            e.printStackTrace();
+                            Log.e("WeatherImpl", "Inside OnError Method of Subscription", e);
+
                             if (iWeatherListner != null) {
                                 iWeatherListner.onWeatherDataResponseFailure(context.getResources().getString(R.string.server_error));
                             }
@@ -124,5 +134,6 @@ public class WeatherImpl {
 
 
     }
+
 }
 

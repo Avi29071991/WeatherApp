@@ -28,13 +28,8 @@ public interface WeatherAPI {
 
 
     /**
-     * Returns the General API using retrofit for fetching the current weather data depending upon the latitude and longitude provided.
-     *
-     * @param key API Key for calling forecast.io API.
-     * @param lat latitude of the location.
-     * @param lng longitude of the location.
+     * Returns the stubbed response of weather data
      **/
-    @GET("{api_key}/{latitude},{longitude}")
-    Call<WeatherBean> fetchCurrentWeatherBean(@Path("api_key") String key, @Path("latitude") double lat,
-                                              @Path("longitude") double lng);
+    @GET("weather_response_200_OK.json")
+    Call<WeatherBean> fetchStubbedWeatherBean() throws Exception;
 }

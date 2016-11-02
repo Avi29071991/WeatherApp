@@ -22,7 +22,6 @@ import com.example.l091735.weather_modified_app.application.MyWeatherApplication
 import com.example.l091735.weather_modified_app.databinding.ActivityWeatherMainBinding;
 import com.example.l091735.weather_modified_app.model.beans.DailyData;
 import com.example.l091735.weather_modified_app.model.interfaces.IWeather;
-import com.example.l091735.weather_modified_app.model.interfaces.WeatherAPI;
 import com.example.l091735.weather_modified_app.presenter.WeatherImpl;
 import com.example.l091735.weather_modified_app.utils.Codes;
 import com.example.l091735.weather_modified_app.utils.Utilities;
@@ -50,7 +49,6 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
 
     private GoogleApiClient googleApiClient; // Requesting location updates to begin
 
-    private View scrolling_view;
     private RecyclerView recycler_view;
     private TextView msg_text;
     private ProgressBar loadingBar;
@@ -68,6 +66,10 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
 
         setupUI();
 
+
+        /**
+         * This method needs to be used for actual implementation.
+         **/
         if (Utilities.checkPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)) {
             startCall();
         } else {
@@ -103,7 +105,7 @@ public class WeatherMainActivity extends AppCompatActivity implements IWeather, 
             if (binding.getRoot() != null) {
 
                 setSupportActionBar((Toolbar) binding.getRoot().findViewById(R.id.toolbar));
-                scrolling_view = binding.getRoot().findViewById(R.id.scrolling_view);
+                View scrolling_view = binding.getRoot().findViewById(R.id.scrolling_view);
 
                 if (scrolling_view != null) {
 

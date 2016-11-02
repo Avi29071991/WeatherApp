@@ -62,7 +62,7 @@ public class NetworkingModules {
 
     @Provides
     @Singleton
-    public WeatherAPI getWeatherAPIInstance(Retrofit retrofit) {
+    WeatherAPI getWeatherAPIInstance(Retrofit retrofit) {
         return retrofit.create(WeatherAPI.class);
     }
 }

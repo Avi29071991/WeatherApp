@@ -8,6 +8,7 @@ import com.example.l091735.weather_modified_app.dagggerImpPackage.DaggerWeatherA
 import com.example.l091735.weather_modified_app.dagggerImpPackage.LocationModule;
 import com.example.l091735.weather_modified_app.dagggerImpPackage.NetworkingModules;
 import com.example.l091735.weather_modified_app.dagggerImpPackage.WeatherAppComponent;
+import com.example.l091735.weather_modified_app.utils.Codes;
 
 
 /**
@@ -28,7 +29,7 @@ public class MyWeatherApplication extends Application {
 
         appComponent = DaggerWeatherAppComponent.builder()
                 .androidModule(new AndroidModule(this))
-                .networkingModules(new NetworkingModules(getString(R.string.weather_base_url)))
+                .networkingModules(new NetworkingModules(Codes.BASE_WEATHER_URL))
                 .locationModule(new LocationModule(this))
                 .build();
     }

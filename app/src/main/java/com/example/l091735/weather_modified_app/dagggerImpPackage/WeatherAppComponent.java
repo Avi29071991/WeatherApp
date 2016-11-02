@@ -21,4 +21,6 @@ public interface WeatherAppComponent {
     void injectWeatherListAdapter(DailyWeatherAdapter dailyWeatherAdapter);
 
     void injectPojo(WeatherImpl weatherImp);
+
+
 }
