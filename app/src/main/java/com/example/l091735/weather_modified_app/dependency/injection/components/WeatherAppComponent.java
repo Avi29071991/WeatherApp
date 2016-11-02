@@ -1,5 +1,8 @@
-package com.example.l091735.weather_modified_app.dagggerImpPackage;
+package com.example.l091735.weather_modified_app.dependency.injection.components;
 
+import com.example.l091735.weather_modified_app.dependency.injection.modules.AndroidModule;
+import com.example.l091735.weather_modified_app.dependency.injection.modules.LocationModule;
+import com.example.l091735.weather_modified_app.dependency.injection.modules.NetworkingModules;
 import com.example.l091735.weather_modified_app.presenter.WeatherImpl;
 import com.example.l091735.weather_modified_app.view.activity.WeatherMainActivity;
 import com.example.l091735.weather_modified_app.view.adapter.DailyWeatherAdapter;

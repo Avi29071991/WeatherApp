@@ -1,4 +1,4 @@
-package com.example.l091735.weather_modified_app.dagggerImpPackage;
+package com.example.l091735.weather_modified_app.dependency.injection.modules;
 
 import com.example.l091735.weather_modified_app.model.interfaces.WeatherAPI;
 import com.example.l091735.weather_modified_app.utils.Codes;

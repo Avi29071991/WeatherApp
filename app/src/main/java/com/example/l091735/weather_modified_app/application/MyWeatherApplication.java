@@ -2,12 +2,11 @@ package com.example.l091735.weather_modified_app.application;
 
 import android.app.Application;
 
-import com.example.l091735.weather_modified_app.R;
-import com.example.l091735.weather_modified_app.dagggerImpPackage.AndroidModule;
-import com.example.l091735.weather_modified_app.dagggerImpPackage.DaggerWeatherAppComponent;
-import com.example.l091735.weather_modified_app.dagggerImpPackage.LocationModule;
-import com.example.l091735.weather_modified_app.dagggerImpPackage.NetworkingModules;
-import com.example.l091735.weather_modified_app.dagggerImpPackage.WeatherAppComponent;
+import com.example.l091735.weather_modified_app.dependency.injection.components.DaggerWeatherAppComponent;
+import com.example.l091735.weather_modified_app.dependency.injection.components.WeatherAppComponent;
+import com.example.l091735.weather_modified_app.dependency.injection.modules.AndroidModule;
+import com.example.l091735.weather_modified_app.dependency.injection.modules.LocationModule;
+import com.example.l091735.weather_modified_app.dependency.injection.modules.NetworkingModules;
 import com.example.l091735.weather_modified_app.utils.Codes;
 
 
@@ -32,5 +31,6 @@ public class MyWeatherApplication extends Application {
                 .networkingModules(new NetworkingModules(Codes.BASE_WEATHER_URL))
                 .locationModule(new LocationModule(this))
                 .build();
+
     }
 }

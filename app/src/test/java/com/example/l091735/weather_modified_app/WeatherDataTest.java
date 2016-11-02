@@ -1,6 +1,6 @@
 package com.example.l091735.weather_modified_app;
 
-import com.example.l091735.weather_modified_app.dagggerImpPackage.NetworkingModules;
+import com.example.l091735.weather_modified_app.dependency.injection.modules.NetworkingModules;
 import com.example.l091735.weather_modified_app.model.beans.WeatherBean;
 import com.example.l091735.weather_modified_app.model.interfaces.WeatherAPI;
 import com.example.l091735.weather_modified_app.presenter.WeatherImpl;

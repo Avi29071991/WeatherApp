@@ -1,4 +1,4 @@
-package com.example.l091735.weather_modified_app.dagggerImpPackage;
+package com.example.l091735.weather_modified_app.dependency.injection.modules;
 
 import android.app.Application;
 import android.content.Context;
