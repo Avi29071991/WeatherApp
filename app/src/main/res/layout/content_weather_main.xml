@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.l091735.weather_modified_app.view.activity.WeatherMainActivity"
+    tools:context="com.westpac.l091735.weatherforecastapp.view.activity.WeatherMainActivity"
     tools:showIn="@layout/activity_weather_main">
 
     <android.support.v7.widget.RecyclerView

@@ -5,7 +5,7 @@
 
         <variable
             name="dailyData"
-            type="com.example.l091735.weather_modified_app.model.beans.DailyData" />
+            type="com.westpac.l091735.weatherforecastapp.model.beans.DailyData" />
     </data>
 
     <LinearLayout
