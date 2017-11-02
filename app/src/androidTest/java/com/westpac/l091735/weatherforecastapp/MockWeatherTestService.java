@@ -1,7 +1,7 @@
 package com.westpac.l091735.weatherforecastapp;
 
-import com.westpac.l091735.weatherforecastapp.model.beans.WeatherBean;
-import com.westpac.l091735.weatherforecastapp.model.interfaces.WeatherAPI;
+//import com.westpac.l091735.weatherforecastapp.model.beans.WeatherBean;
+//import com.westpac.l091735.weatherforecastapp.model.interfaces.WeatherAPI;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -15,10 +15,10 @@ import static android.support.test.InstrumentationRegistry.getInstrumentation;
  * Created by L091735 on 2/11/2016.
  */
 
-public class MockWeatherTestService implements WeatherAPI {
+public class MockWeatherTestService /*implements WeatherAPI*/ {
 
 
-    private final BehaviorDelegate<WeatherAPI> delegate;
+    /*private final BehaviorDelegate<WeatherAPI> delegate;
 
     public MockWeatherTestService(BehaviorDelegate<WeatherAPI> delegate) {
         this.delegate = delegate;
@@ -37,5 +37,5 @@ public class MockWeatherTestService implements WeatherAPI {
         WeatherBean weatherResponse = new Gson().fromJson(response, WeatherBean.class);
 
         return delegate.returningResponse(weatherResponse).fetchStubbedWeatherBean();
-    }
+    }*/
 }

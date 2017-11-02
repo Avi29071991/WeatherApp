@@ -1,1 +1,8 @@
-include ':app'
+pluginManagement {
+    repositories {
+        maven { url System.getenv("GRADLE_PLUGIN_REPO") }
+        gradlePluginPortal()
+    }
+}
+
+include ':app', ':network', ':model'

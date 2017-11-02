@@ -2,10 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <import type="com.westpac.l091735.weatherforecastapp.viewModel.WeatherBindings"/>
         <variable
             name="dailyData"
-            type="com.westpac.l091735.weatherforecastapp.model.beans.DailyData" />
+            type="com.westpac.l091735.weatherforecastapp.viewModel.DailyWeatherViewModel" />
     </data>
 
     <LinearLayout
@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                app:weatherIcon="@{dailyData.icon}"
+                app:weatherIcon="@{dailyData.getIcon()}"
                 android:layout_marginTop="10dp" />
 
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_marginTop="5dp"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
-                app:dateTime="@{dailyData.time}"
+                app:text="@{dailyData.getDay()}"
                 android:textStyle="bold" />
 
             <TextView
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                app:dateTime="@{dailyData.time}"
+                app:text="@{dailyData.getDate()}"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -91,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
-                        app:temperature="@{dailyData.temperatureMin}"
+                        app:temperature="@{dailyData.getMinTemperature()}"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -115,7 +115,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
-                        app:temperature="@{dailyData.temperatureMax}"
+                        app:temperature="@{dailyData.getMaxTemperature()}"
                         android:textSize="18sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -144,7 +144,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/white"
-                        app:text="@{dailyData.summary}"
+                        app:text="@{dailyData.getSummary()}"
                         android:textSize="14sp" />
                 </LinearLayout>
 
