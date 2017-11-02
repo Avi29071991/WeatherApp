@@ -1,0 +1,97 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
+    defaultConfig {
+        applicationId "com.example.l091735.weather_modified_app"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            applicationIdSuffix ".debug"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    //need to remove this after detecting duplicate sources of library
+    configurations.all {
+        resolutionStrategy.force 'com.android.support:support-v4:26.0.1'
+        resolutionStrategy.force 'com.android.support:appcompat-v7:26.0.1'
+        resolutionStrategy.force 'com.android.support:design:26.0.1'
+        resolutionStrategy.force 'com.squareup.okio:okio:1.13.0'
+        resolutionStrategy.force 'com.squareup.okhttp3:okhttp:3.9.0'
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.1'
+    }
+}
+
+kapt {
+    generateStubs = true
+}
+
+dependencies {
+
+    //dependencies for unit testing
+    androidTestCompile "com.android.support.test.espresso:espresso-core:${versions.espresso}"
+    androidTestCompile "com.android.support.test.espresso:espresso-contrib:${versions.espresso}"
+    testCompile "junit:junit:${versions.junit}"
+    testCompile "org.mockito:mockito-core:${versions.mockito_core}"
+    androidTestCompile "com.squareup.spoon:spoon-client:${versions.spoon}"
+    androidTestCompile "com.android.support.test:runner:${versions.test_runner}"
+    androidTestCompile "com.android.support.test:rules:${versions.test_runner}"
+    androidTestCompile "com.squareup.okhttp3:mockwebserver:${versions.mockwebserver}"
+    androidTestCompile "com.squareup.retrofit2:retrofit-mock:${versions.retrofit}"
+    kapt "com.android.databinding:compiler:${versions.androidGradlePlugin}"
+    //dependencies from android framework
+    compile "com.android.support:appcompat-v7:${versions.androidSupport}"
+    compile "com.android.support:design:${versions.androidSupport}"
+    compile "com.google.android.gms:play-services-location:${versions.play_services}"
+
+    //dependencies for reactive libraries
+    compile "io.reactivex:rxjava:${versions.rxJava}"
+    compile "io.reactivex:rxandroid:${versions.rxAndroid}"
+
+    //dependencies for retrofit libraries
+    compile "com.squareup.okhttp3:okhttp:${versions.okhttp}"
+    compile "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    compile "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${versions.retrofit}"
+
+    //dependencies for Dagger libraries
+    kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
+    compile "com.google.dagger:dagger:${versions.dagger}"
+    compile "com.google.dagger:dagger-android:${versions.dagger}"
+    kapt "com.google.dagger:dagger-android-processor:${versions.dagger}"
+    compile "com.google.dagger:dagger-android-support:${versions.dagger}"
+    provided "javax.annotation:jsr250-api:${versions.jsr250}"
+
+    //dependencies for Kotlin
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:${versions.kotlin}"
+    compile project(":model")
+    compile project(":network")
+}
+
+
