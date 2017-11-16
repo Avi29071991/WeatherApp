@@ -6,6 +6,7 @@ import com.westpac.l091735.network.model.DailyData
 class ModelConverter {
 
     fun dailyDataList(dailyData: List<DailyData>): List<Daily> {
+        //Just for test
         var list: ArrayList<Daily> = ArrayList()
         dailyData.mapTo(list) {
             Daily.Builder()
