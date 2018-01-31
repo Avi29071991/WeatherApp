@@ -37,16 +37,6 @@ android {
     dataBinding {
         enabled = true
     }
-
-    //need to remove this after detecting duplicate sources of library
-    /*configurations.all {
-        resolutionStrategy.force 'com.android.support:support-v4:26.0.1'
-        resolutionStrategy.force 'com.android.support:appcompat-v7:26.0.1'
-        resolutionStrategy.force 'com.android.support:design:26.0.1'
-        resolutionStrategy.force 'com.squareup.okio:okio:1.13.0'
-        resolutionStrategy.force 'com.squareup.okhttp3:okhttp:3.9.0'
-        resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.1'
-    }*/
 }
 
 kapt {
@@ -66,14 +56,17 @@ dependencies {
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:${versions.mockwebserver}"
     androidTestImplementation "com.squareup.retrofit2:retrofit-mock:${versions.retrofit}"
     kapt "com.android.databinding:compiler:${versions.androidGradlePlugin}"
+
     //dependencies from android framework
     implementation "com.android.support:appcompat-v7:${versions.androidSupport}"
     implementation "com.android.support:design:${versions.androidSupport}"
     implementation "com.google.android.gms:play-services-location:${versions.play_services}"
+
     //dependencies for reactive libraries
     implementation "io.reactivex:rxjava:${versions.rxJava}"
     implementation "io.reactivex:rxandroid:${versions.rxAndroid}"
 
+    //dependency for multidex
     implementation "com.android.support:multidex:${versions.multiDex}"
 
     //dependencies for retrofit libraries
@@ -89,13 +82,15 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:${versions.dagger}"
     implementation "com.google.dagger:dagger-android-support:${versions.dagger}"
 
-    //arch components library
+    //dependencies for Android Arch Components library
     implementation "android.arch.lifecycle:runtime:${versions.archComponents}"
     implementation "android.arch.lifecycle:extensions:${versions.archComponents}"
     kapt "android.arch.lifecycle:compiler:${versions.archComponents}"
 
     //dependencies for Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:${versions.kotlin}"
+
+    //dependencies for in app modules
     implementation project(":model")
     implementation project(":network")
 }
