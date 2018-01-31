@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Avinash Demo</string>
     <string name="demo_name">Weather App</string>
+    <string name="detail_name">Weather Detail</string>
     <string name="empty"></string>
     <string name="action_refresh">Refresh</string>
     <string name="no_network">Please Connect to internet and try again later.</string>
@@ -26,6 +27,9 @@
 
     <string name="humidity">Humidity</string>
     <string name="wind">Wind</string>
+    <string name="pressure">Pressure</string>
+    <string name="dew_point">Dew Point</string>
+    <string name="ozone">Ozone</string>
     <string name="max">Max</string>
     <string name="min">Min</string>
 

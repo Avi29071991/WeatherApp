@@ -2,10 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.westpac.l091735.weatherforecastapp.viewModel.WeatherBindings"/>
+        <import type="com.avinash.weatherapp.forecastapp.viewModel.WeatherBindings"/>
         <variable
             name="dailyData"
-            type="com.westpac.l091735.weatherforecastapp.viewModel.DailyWeatherViewModel" />
+            type="com.avinash.weatherapp.forecastapp.viewModel.DailyWeatherViewModel" />
     </data>
 
     <LinearLayout
