@@ -19,15 +19,15 @@ class DataProvider @Inject constructor(apiDataSource: ApiDataSource, modelConver
 
     private fun <R> networkDependencyCall(observable: Observable<R>): Observable<R> {
 
-        if (isDeviceOnline(mContext)) {
-            return observable.onErrorResumeNext { throwable ->
+        return if (isDeviceOnline(mContext)) {
+            observable.onErrorResumeNext { throwable ->
                 //throw error back to subscriber
                 Observable.error<R>(throwable)
             }.doOnNext {
                 // additional actions you need to implement if required
             }
         } else {
-            return Observable.error(NetworkException(0, "Device Offline"))
+            Observable.error(NetworkException(0, "Device Offline"))
         }
     }
 

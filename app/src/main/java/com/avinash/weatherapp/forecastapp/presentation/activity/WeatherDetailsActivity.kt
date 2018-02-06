@@ -1,11 +1,9 @@
 package com.avinash.weatherapp.forecastapp.presentation.activity
 
-import android.arch.lifecycle.LifecycleRegistryOwner
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.avinash.weatherapp.forecastapp.viewModel.DailyDetailViewModel
 import com.avinash.weatherapp.model.Daily
-import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.Observer
 import com.avinash.weatherapp.forecastapp.R
 import com.avinash.weatherapp.forecastapp.databinding.ActivityWeatherDetailsBinding
@@ -13,17 +11,17 @@ import com.avinash.weatherapp.forecastapp.viewModel.DailyWeatherViewModel
 import com.avinash.weatherapp.forecastapp.viewModel.DailyWeatherViewModelFactory
 
 
-class WeatherDetailsActivity : BaseActivity<ActivityWeatherDetailsBinding>(), LifecycleRegistryOwner {
+class WeatherDetailsActivity : BaseActivity<ActivityWeatherDetailsBinding>() {
 
 
     private var weatherDetailData: Daily? = null
 
-    private lateinit var registry: LifecycleRegistry
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initialize()
-        setWeatherData()
+        this.run {
+            initialize()
+            setWeatherData()
+        }
     }
 
     override fun getLayoutResource(): Int {
@@ -31,7 +29,6 @@ class WeatherDetailsActivity : BaseActivity<ActivityWeatherDetailsBinding>(), Li
     }
 
     private fun initialize() {
-        registry = LifecycleRegistry(this)
         weatherDetailData = getWeatherDailyData()
     }
 
@@ -47,10 +44,6 @@ class WeatherDetailsActivity : BaseActivity<ActivityWeatherDetailsBinding>(), Li
 
     private fun getWeatherDailyData(): Daily? {
         return intent?.extras?.getSerializable(DATA_KEY) as Daily?
-    }
-
-    override fun getLifecycle(): LifecycleRegistry {
-        return registry
     }
 
     companion object {
