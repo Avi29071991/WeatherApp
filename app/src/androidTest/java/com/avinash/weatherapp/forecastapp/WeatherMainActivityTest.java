@@ -20,7 +20,7 @@ import retrofit2.mock.NetworkBehavior;
 
 
 /**
- * Created by L091735 on 1/11/2016.
+ * Created by Avinash Mandal on 1/11/2016.
  */
 
 public class WeatherMainActivityTest extends InstrumentationTestCase {
