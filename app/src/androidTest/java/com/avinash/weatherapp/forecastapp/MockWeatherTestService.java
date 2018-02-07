@@ -12,7 +12,7 @@ import rx.Observable;
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 
 /**
- * Created by L091735 on 2/11/2016.
+ * Created by Avinash Mandal on 2/11/2016.
  */
 
 public class MockWeatherTestService /*implements WeatherAPI*/ {
