@@ -1,7 +1,7 @@
 package com.avinash.weatherapp.forecastapp.kotlinDemo
 
 /**
- * Created by L091735 on 6/02/2018.
+ * Created by Avinash Mandal on 6/02/2018.
  */
 enum class State(value: String) {
 
