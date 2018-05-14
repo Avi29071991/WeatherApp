@@ -1,6 +1,6 @@
 package com.avinash.weatherapp.forecastapp.presentation.view
 
-import com.avinash.weatherapp.forecastapp.viewModel.DailyWeatherViewModel
+import com.avinash.weatherapp.forecastapp.model.DailyWeatherDataModel
 
 
 interface WeatherView : BaseView {
@@ -8,7 +8,7 @@ interface WeatherView : BaseView {
 
     fun displayNetworkError()
 
-    fun showWeatherData(dataList: List<DailyWeatherViewModel>)
+    fun showWeatherData(dataList: List<DailyWeatherDataModel>)
 
     fun showList(show: Boolean)
 }

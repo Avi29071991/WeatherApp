@@ -5,7 +5,7 @@ import javax.inject.Inject
 import rx.Observable
 import android.net.ConnectivityManager
 import com.avinash.weatherapp.forecastapp.modelconverter.ModelConverter
-import com.avinash.weatherapp.forecastapp.viewModel.DailyWeatherViewModel
+import com.avinash.weatherapp.forecastapp.model.DailyWeatherDataModel
 import com.avinash.weatherapp.model.Daily
 import com.avinash.weatherapp.network.datasource.ApiDataSource
 import com.avinash.weatherapp.network.exception.NetworkException
@@ -45,11 +45,11 @@ class DataProvider @Inject constructor(apiDataSource: ApiDataSource, modelConver
         } as Observable<List<Daily>?>)
     }
 
-    fun processWeatherList(list: List<Daily>?): Observable<List<DailyWeatherViewModel>> {
+    fun processWeatherList(list: List<Daily>?): Observable<List<DailyWeatherDataModel>> {
         return Observable.create({ subscriber ->
-            val dailyList = ArrayList<DailyWeatherViewModel>()
+            val dailyList = ArrayList<DailyWeatherDataModel>()
             if (list != null) {
-                list.mapTo(dailyList) { DailyWeatherViewModel(it) }
+                list.mapTo(dailyList) { DailyWeatherDataModel(it) }
                 subscriber.onNext(dailyList)
             } else {
                 subscriber.onError(Exception())

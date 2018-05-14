@@ -10,7 +10,7 @@
 
         <variable
             name="dataDetails"
-            type="com.avinash.weatherapp.forecastapp.viewModel.DailyWeatherViewModel" />
+            type="com.avinash.weatherapp.forecastapp.model.DailyWeatherDataModel" />
 
     </data>
 

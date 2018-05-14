@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import com.avinash.weatherapp.forecastapp.BR
 import com.avinash.weatherapp.forecastapp.R
 import com.avinash.weatherapp.forecastapp.databinding.WeatherRowBinding
-import com.avinash.weatherapp.forecastapp.viewModel.DailyWeatherViewModel
+import com.avinash.weatherapp.forecastapp.model.DailyWeatherDataModel
 
 
 class WeatherAdapter constructor(itemClickListener: WeatherAdapter.OnItemClickListener, layoutInflater: LayoutInflater) : RecyclerView.Adapter<WeatherAdapter.DailyViewHolder>() {
 
     var listener: WeatherAdapter.OnItemClickListener = itemClickListener
-    var dailyList = ArrayList<DailyWeatherViewModel>()
+    var dailyList = ArrayList<DailyWeatherDataModel>()
     var inflater: LayoutInflater = layoutInflater
 
     override fun onCreateViewHolder(viewGroup: ViewGroup?, i: Int): WeatherAdapter.DailyViewHolder {
@@ -31,7 +31,7 @@ class WeatherAdapter constructor(itemClickListener: WeatherAdapter.OnItemClickLi
         weatherBinding.setVariable(BR.dailyData,getItem(position))
     }
 
-    fun setData(dataList: List<DailyWeatherViewModel>) {
+    fun setData(dataList: List<DailyWeatherDataModel>) {
         dailyList.clear()
         for (data in dataList) {
             dailyList.add(data)
@@ -40,7 +40,7 @@ class WeatherAdapter constructor(itemClickListener: WeatherAdapter.OnItemClickLi
     }
 
     interface OnItemClickListener {
-        fun onRowClicked(dailyItem: DailyWeatherViewModel?)
+        fun onRowClicked(dailyItemData: DailyWeatherDataModel?)
     }
 
 
@@ -57,7 +57,7 @@ class WeatherAdapter constructor(itemClickListener: WeatherAdapter.OnItemClickLi
         }
     }
 
-    fun getItem(position: Int): DailyWeatherViewModel? {
+    fun getItem(position: Int): DailyWeatherDataModel? {
         return if (!dailyList.isEmpty()) dailyList[position] else null
     }
 }

@@ -1,7 +1,7 @@
 package com.avinash.weatherapp.forecastapp.usecase
 
 import com.avinash.weatherapp.forecastapp.data.DataProvider
-import com.avinash.weatherapp.forecastapp.viewModel.DailyWeatherViewModel
+import com.avinash.weatherapp.forecastapp.model.DailyWeatherDataModel
 import rx.Observable
 import javax.inject.Inject
 
@@ -12,7 +12,7 @@ class GetWeatherListUseCase @Inject constructor(dataProvider: DataProvider) : Ba
     private lateinit var apiKey: String
     private val provider: DataProvider = dataProvider
 
-    override fun buildUseCaseObservable(): Observable<List<DailyWeatherViewModel>> {
+    override fun buildUseCaseObservable(): Observable<List<DailyWeatherDataModel>> {
         return provider.fetchCurrentWeather(apiKey, latitude, longitude)
                 .flatMap { provider.processWeatherList(it) }
     }
