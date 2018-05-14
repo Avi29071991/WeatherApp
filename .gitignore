@@ -13,6 +13,7 @@ captures/
 /.gradle/*
 /.idea/*
 /build/*
+
 /gradle/*
 local.properties
 signing.properties
@@ -25,5 +26,3 @@ gradlew*
 settings-local.gradle
 app/.idea/*
 app/build/*
-app/build-local.gradle
-app/westpac.keystore

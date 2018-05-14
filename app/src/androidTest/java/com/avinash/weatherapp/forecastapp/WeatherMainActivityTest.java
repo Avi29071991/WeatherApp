@@ -3,8 +3,6 @@ package com.avinash.weatherapp.forecastapp;
 import android.support.test.filters.SmallTest;
 import android.test.InstrumentationTestCase;
 
-/*import com.westpac.l091735.weatherforecastapp.model.beans.WeatherBean;
-import com.westpac.l091735.weatherforecastapp.model.interfaces.WeatherAPI;*/
 import com.avinash.weatherapp.forecastapp.utils.Codes;
 
 import org.junit.Assert;
@@ -20,7 +18,7 @@ import retrofit2.mock.NetworkBehavior;
 
 
 /**
- * Created by L091735 on 1/11/2016.
+ * Created by Avinash Mandal on 1/11/2016.
  */
 
 public class WeatherMainActivityTest extends InstrumentationTestCase {

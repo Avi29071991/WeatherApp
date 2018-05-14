@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 /**
- * Created by L091735 on 27/10/2017.
+ * Created by Avinash Mandal on 27/10/2017.
  */
 class WeatherMain {
 

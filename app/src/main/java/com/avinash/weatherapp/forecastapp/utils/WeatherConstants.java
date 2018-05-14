@@ -1,7 +1,7 @@
 package com.avinash.weatherapp.forecastapp.utils;
 
 /**
- * Created by 594094 on 8/29/2016.
+ * Created by Avinash Mandal on 8/29/2016.
  */
 public class WeatherConstants {
 
