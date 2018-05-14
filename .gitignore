@@ -21,13 +21,9 @@ gradle.properties
 gradlew*
 *.iml
 *~
-network/network.iml
-model/model.iml
 
 settings-local.gradle
 app/.idea/*
 app/build/*
 app/build-local.gradle
-network/build.gradle
-model/build.gradle
 app/westpac.keystore
