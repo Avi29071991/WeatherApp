@@ -28,7 +28,7 @@ class WeatherAdapter constructor(itemClickListener: WeatherAdapter.OnItemClickLi
 
     override fun onBindViewHolder(viewHolder: WeatherAdapter.DailyViewHolder?, position: Int) {
         val weatherBinding: WeatherRowBinding = viewHolder?.dataBinding as WeatherRowBinding
-        weatherBinding.setVariable(BR.dailyData,getItem(position))
+        weatherBinding.setVariable(BR.dailyDataData,getItem(position))
     }
 
     fun setData(dataList: List<DailyWeatherDataModel>) {
