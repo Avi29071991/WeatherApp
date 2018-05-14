@@ -1,6 +1,3 @@
 Weather App
 
-This code is used demonstrate use for kotlin language in developing Android applications.
-It demonstrates basics of kotlin language in "kotlin" package of main app
-Also it demonstrates how to implement clean code architecture using MVVM design pattern , RxJava , Dagger 2 and Basics of Android Arch Components.
-For Android Arch Components more code and examples will be coming soon....
+This code is used demonstrate how to implement clean code architecture using MVVM design pattern , RxJava , Dagger 2 and Basics of Android Arch Components.
