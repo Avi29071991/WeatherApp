@@ -14,6 +14,8 @@ import android.view.View
 import com.avinash.weatherapp.forecastapp.R
 import com.avinash.weatherapp.forecastapp.databinding.ActivityWeatherMainBinding
 import com.avinash.weatherapp.forecastapp.di.Injectable
+import com.avinash.weatherapp.forecastapp.kotlinDemo.BaseKotlinClass
+import com.avinash.weatherapp.forecastapp.kotlinDemo.RangeDemo
 import com.avinash.weatherapp.forecastapp.presentation.presenter.impl.WeatherPresenter
 import com.avinash.weatherapp.forecastapp.usecase.GetWeatherListUseCase
 import com.avinash.weatherapp.forecastapp.utils.Codes
@@ -38,6 +40,7 @@ class WeatherListActivity : BaseActivity<ActivityWeatherMainBinding>(), WeatherV
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setupUI()
         setupPresenter()
         setRecyclerView()
@@ -51,6 +54,8 @@ class WeatherListActivity : BaseActivity<ActivityWeatherMainBinding>(), WeatherV
                         Codes.LOCATION_PERMISSION)
             }
         }
+
+        kotlinDemo()
     }
 
     private fun subscribeToLocationUpdate() {
@@ -144,5 +149,17 @@ class WeatherListActivity : BaseActivity<ActivityWeatherMainBinding>(), WeatherV
     @Inject
     fun setCurrentLocationListener(listener: CurrentLocationListener) {
         this.currentLocationListener = listener
+    }
+
+    fun kotlinDemo() {
+        val test: BaseKotlinClass = RangeDemo()
+        //Below method is only for interface demonstration
+        //if(test is NameInterface) test.setNameValue("Avinash Mandal")
+        test.testClass()
+        //testing Companion objects demo
+        //println(test.TAG + " ${CompanionObjectDemo.getCompanionObjectValue("from WeatherList Activity")}")
+        //below code is used to demonstrate the use of objects in kotlin
+        /*val singletonObj = SingletonObject.getSingleObjectText()
+        println("BaseKotlinClass singletonObj value = $singletonObj")*/
     }
 }
